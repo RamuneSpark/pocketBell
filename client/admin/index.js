@@ -8,17 +8,17 @@ let preloadSound = preloadSoundFunction();
 
 function preloadSoundFunction() {
 
-    const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "asterisk", "sharp", "connect", "guide0", "guide1", "standby", "wait"];
+    const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "asterisk", "sharp"];
     let j = 0;
 
     function load(i) {
         if (typeof preloadArea[i] === 'undefined') {
             preloadArea[i] = new Audio();
+            preloadArea[i].src = "mp3/" + a[i] + ".mp3";
+            preloadArea[i].preload = 'auto';
+
         }
-        preloadArea[i].src = "mp3/" + a[i] + ".mp3";
-        preloadArea[i].preload = 'auto';
         preloadArea[i].load();
-        console.log([i, j]);
 
     }
 
@@ -26,25 +26,7 @@ function preloadSoundFunction() {
     //クロージャでjを記憶
     return () => {
 
-        if (preloadSoundMode === false) {
-
-            preloadSoundMode = true;
-    
-            for (let i = 0; i < a.length; i++) {
-    
-                load(i);
-    
-            }
-    
-    
-        } else {
-    
-    
-            load(j);
-    
-    
-        }
-    
+        load(j);
 
         j++;
         j %= a.length;
@@ -237,11 +219,11 @@ document.onkeydown = function (e) {
 
     if (preloadSoundID === null) {
 
-        preloadSoundID = setInterval(()=>{
+        preloadSoundID = setInterval(() => {
 
             preloadSound();
 
-        }, 400);
+        }, 100);
 
     }
 
