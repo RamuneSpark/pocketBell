@@ -29,7 +29,7 @@ function run() {
         preload++;
 
         if(preload >= fps){
-            sound.load();
+            soundLoad.load();
         }
 
         preload %= fps;
@@ -413,10 +413,15 @@ socket.on("sendMessage_phone", (e) => {
 let numberText = "";
 
 let sound = new Audio();
-sound.preload = "auto";
 sound.loop = false;
 sound.volume = 0.7;
 sound.src = "mp3/call.mp3";
+
+let soundLoad = new Audio();
+soundLoad.preload = "auto";
+soundLoad.loop = false;
+soundLoad.volume = 0.7;
+soundLoad.src = "mp3/call.mp3";
 
 function modify(input) {
     let a = input;
