@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const mp3Path = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "asterisk", "sharp"];
-    for (let i = 0; i <= mp3Path.length; i++) {
+    for (let i = 0; i < mp3Path.length; i++) {
         const audio = document.createElement("audio");
         audio.preload = "auto";
         audio.src = `mp3/${mp3Path[i]}.mp3`; // 音声ファイルのパスを指定
