@@ -1,5 +1,61 @@
 let socket = io(serverURL());
 
+let preloadArea = [];
+let preloadSoundID = null;
+let preloadSoundMode = false;
+
+let preloadSound = preloadSoundFunction();
+
+function preloadSoundFunction() {
+
+    const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "asterisk", "sharp", "connect", "guide0", "guide1", "standby", "wait"];
+    let j = 0;
+
+    function load(i) {
+        if (typeof preloadArea[i] === 'undefined') {
+            preloadArea[i] = new Audio();
+        }
+        preloadArea[i].src = "mp3/" + a[i] + ".mp3";
+        preloadArea[i].preload = 'auto';
+        preloadArea[i].load();
+        console.log([i, j]);
+
+    }
+
+
+    //クロージャでjを記憶
+    return () => {
+
+        if (preloadSoundMode === false) {
+
+            preloadSoundMode = true;
+    
+            for (let i = 0; i < a.length; i++) {
+    
+                load(i);
+    
+            }
+    
+    
+        } else {
+    
+    
+            load(j);
+    
+    
+        }
+    
+
+        j++;
+        j %= a.length;
+        return j;
+
+    }
+
+}
+
+
+
 function serverURL() {
 
     const a = location.protocol; //http:
@@ -105,7 +161,7 @@ howToTransform();
 
 let howToID = null;
 
-div_howToIMG.src = "howTo_"+voiceMode+".jpg";
+div_howToIMG.src = "howTo_" + voiceMode + ".jpg";
 
 const div_subMessage2 = document.createElement("div");
 document.body.appendChild(div_subMessage2);
@@ -179,8 +235,20 @@ document.onkeydown = function (e) {
 
     e.preventDefault();
 
+    if (preloadSoundID === null) {
+
+        preloadSoundID = setInterval(()=>{
+
+            preloadSound();
+
+        }, 1000);
+
+    }
+
+
     //エンターキー押下
     if (e.code === "Enter" || e.code === "Space") {
+
 
         howToScaleMove *= -1;
 
@@ -220,7 +288,7 @@ document.onkeydown = function (e) {
 
     }
 
-    //スペースキー押下
+
     if (e.code === "F2") {
 
         secret++;
@@ -527,7 +595,7 @@ document.onkeydown = function (e) {
                         mode = 120;
 
                         message.push("音声確認中");
-                        messageUpdate();        
+                        messageUpdate();
 
                         for (let i = 0; i < uttr.length; i++) {
                             synth.speak(uttr[i]);
