@@ -241,7 +241,7 @@ document.onkeydown = function (e) {
 
             preloadSound();
 
-        }, 1000);
+        }, 400);
 
     }
 
