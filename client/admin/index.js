@@ -1,5 +1,43 @@
 let socket = io(serverURL());
 
+let preloadArea = [];
+let preloadSoundID = null;
+let preloadSoundMode = false;
+
+let preloadSound = preloadSoundFunction();
+
+function preloadSoundFunction() {
+
+    const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "asterisk", "sharp"];
+    let j = 0;
+
+    function load(i) {
+        if (typeof preloadArea[i] === 'undefined') {
+            preloadArea[i] = new Audio();
+            preloadArea[i].src = "mp3/" + a[i] + ".mp3";
+            preloadArea[i].preload = 'auto';
+
+        }
+        preloadArea[i].load();
+
+    }
+
+
+    //クロージャでjを記憶
+    return () => {
+
+        load(j);
+
+        j++;
+        j %= a.length;
+        return j;
+
+    }
+
+}
+
+
+
 function serverURL() {
 
     const a = location.protocol; //http:
@@ -179,7 +217,15 @@ document.onkeydown = function (e) {
 
     e.preventDefault();
 
+    if (preloadSoundID === null) {
 
+        preloadSoundID = setInterval(() => {
+
+            preloadSound();
+
+        }, 100);
+
+    }
 
 
     //エンターキー押下
