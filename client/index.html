@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="user-scalable=no, width=device-width" />
+    <!--<link rel="shortcut icon" type = "image/vnd.microsoft.icon" href="sys/favicon.ico" /> -->
+    <title>ポケットベル</title>
+
+</head>
+
+<script lang="ja">
+
+    function URL() {
+
+        const a = location.protocol; //http:
+        const b = location.hostname; //ip
+        const c = location.port; //port
+
+        const d = a + "//" + b + ":" + c + "/pocketbell";
+
+        return d;
+
+
+    }
+
+    window.location.href = URL();
+
+
+</script>
+
+</body>
+
+</html>
