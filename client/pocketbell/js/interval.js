@@ -26,7 +26,7 @@ function run() {
 
         if (noUse("load", 0)) {
             play("load", 0, "mp3/call.mp3", 0.0);
-         //   console.log("SOUND LOADING");
+            //   console.log("SOUND LOADING");
         }
 
 
@@ -51,7 +51,7 @@ function run() {
         setImageWidth(div_pocketbell, "image/pocketbell" + type + ".png", 800);
         setImage(div_bg, "image/bg.jpg");
 
-        if (bs === -100) {
+        if (bs === -100 || bs === -99) {
             textEdge(div_num, 4, "#000000");
         }
 

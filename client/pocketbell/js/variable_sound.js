@@ -22,14 +22,22 @@ function play(type, index, url, volume = 1.0, loop = false) {
 
     async function playing(type, index, url, volume, loop) {
         try {
-            
+
             if (audioContext !== null) {
                 pause(type, index);
 
                 const gainNode = audioContext.createGain();
                 gainNode.connect(audioContext.destination);
 
-                gainNode.gain.value = Math.max(0.0, Math.min(1.0, volume));
+                let vol = volume;
+
+                if(vol > 1.0){
+                    vol = 1.0;
+                }else if(vol < 0.0){
+                    vol = 0.0;
+                }
+
+                gainNode.gain.value = vol;
 
                 const fetchURL = await fetch(url);
                 const arrayBuffer = await fetchURL.arrayBuffer();
@@ -38,7 +46,7 @@ function play(type, index, url, volume = 1.0, loop = false) {
                 sound[type][index] = audioContext.createBufferSource();
                 sound[type][index].buffer = finalBuffer;
                 sound[type][index].loop = loop;
-                sound[type][index].connect(gain);
+                sound[type][index].connect(gainNode);
 
                 sound[type][index].start();
 
@@ -50,7 +58,7 @@ function play(type, index, url, volume = 1.0, loop = false) {
 
             }
         } catch (error) {
-            console.error("サウンド再生中止");
+            console.error("サウンド再生中止" + error);
         }
 
     }
@@ -60,7 +68,7 @@ function play(type, index, url, volume = 1.0, loop = false) {
 function pause(type, index) {
     if (audioContext !== null) {
         if (!noUse(type, index)) {
-            if(sound[type][index] !== "reserve"){
+            if (sound[type][index] !== "reserve") {
                 sound[type][index].stop();
             }
             sound[type][index] = null;
