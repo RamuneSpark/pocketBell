@@ -738,7 +738,7 @@ function messageUpdate() {
 
     message = trimming(message);
 
-    const title = `<span style = "color:#00F500;font-size:3vw;font-weight:bold">ポケットベル　体験コーナー</span><br><span style = "font-size:1.5vw;font-weight:bold">受話器を操作する前に・・・<br>QRコードをスマートフォンで読み取って、<br>ポケットベルの準備をしましょう。</span>`;
+    const title = `<span style = "color:#00F500;font-size:3vw;font-weight:bold">ポケットベル　体験コーナー</span><br><span style = "color:#FFFF00;font-size:1.7vw;font-weight:bold">受話器を操作する前に・・・</span><span style = "font-size:1.5vw;font-weight:bold"><br>QRコードをスマートフォンで読み取って、<br>ポケットベルの準備をしましょう。</span>`;
 
     if (secret === 2) {
         div_message.innerHTML = title;
