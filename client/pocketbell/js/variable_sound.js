@@ -59,8 +59,10 @@ function play(type, index, url, volume = 1.0, loop = false) {
 
 function pause(type, index) {
     if (audioContext !== null) {
-        if (!noUse(type, index) && sound[type][index] !== "reserve") {
-            sound[type][index].stop();
+        if (!noUse(type, index)) {
+            if(sound[type][index] !== "reserve"){
+                sound[type][index].stop();
+            }
             sound[type][index] = null;
         }
     }
