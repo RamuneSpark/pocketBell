@@ -209,6 +209,45 @@ let phoneNumber = "";
 
 let subTimerID = null;
 
+
+
+document.onkeyup = function (e) {
+
+    function pause(i) {
+
+        resetSoundTimer(i);
+
+        soundTimerID[i] = setTimeout(() => {
+            if (!sound[i].paused && !sound[i].ended) {
+                sound[i].pause();
+            }
+        }, 100)
+
+    }
+
+    for (let i = 0; i < 10; i++) {
+        //3 + Shift (#) を除外する
+        if (e.code === "Digit" + i && e.key !== "#") {
+
+            pause(i);
+
+        }
+    }
+
+    if (e.code === "Quote") {
+
+        pause(11);
+
+    }
+
+    if (e.code === "Digit3" && e.key === "#") {
+
+        pause(12);
+
+    }
+
+}
+
 document.onkeydown = function (e) {
 
     if (e.repeat) {
@@ -354,7 +393,7 @@ document.onkeydown = function (e) {
                 sendMode = 0;
                 voice = 0;
 
-                if (i === 8 && no === 1) {
+                if (i === 8 && no === 1 && jpMode === 30) {
 
                     no = 0;
                     jpMode = 0;
@@ -369,6 +408,14 @@ document.onkeydown = function (e) {
                         jpMode = 30;
 
                     }
+
+                } else if (i === 8 && (jpMode === 1)) {
+
+                    no = 0;
+                    jpMode = 0;
+                    sendMessage += "_";
+                    sendMessageUpdate();
+
 
                 } else {
 

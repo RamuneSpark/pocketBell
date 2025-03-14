@@ -20,19 +20,15 @@ if (Math.random() < 0.01) {
 
 let light = { p: 0, k: 0 };
 
-let preload = 0;
-
 function run() {
 
     if (scene === "pocketbell") {
 
-        preload++;
-
-        if(preload >= fps){
-            soundLoad.load();
+        if (noUse("load", 0)) {
+            play("load", 0, "mp3/call.mp3", 0.0);
+         //   console.log("SOUND LOADING");
         }
 
-        preload %= fps;
 
         if (light.p > 0) {
 
@@ -354,7 +350,7 @@ socket.on("sendMessage_phone", (e) => {
         setTimeout(() => {
             let x = e[1];
 
-            sound.play();
+            play("channel", 0, "mp3/call.mp3", 0.7);
 
             let v = [];
 
@@ -412,16 +408,10 @@ socket.on("sendMessage_phone", (e) => {
 
 let numberText = "";
 
-let sound = new Audio();
-sound.loop = false;
-sound.volume = 0.7;
-sound.src = "mp3/call.mp3";
+let sound = { channel: [], load: [] };
 
-let soundLoad = new Audio();
-soundLoad.preload = "auto";
-soundLoad.loop = false;
-soundLoad.volume = 0.7;
-soundLoad.src = "mp3/call.mp3";
+
+
 
 function modify(input) {
     let a = input;

@@ -114,10 +114,12 @@ function click(e, f) {
 
     e.addEventListener("touchstart", function (event) {
 
-        event.preventDefault;
+        event.preventDefault();
 
         a = 1;
         f();
+
+        startUpAudioContext();
 
         return false;
 
@@ -126,7 +128,7 @@ function click(e, f) {
 
     e.addEventListener("mousedown", function (event) {
 
-        event.preventDefault;
+        event.preventDefault();
 
         if (a === 0) {
 
@@ -134,6 +136,8 @@ function click(e, f) {
             f();
         }
         a = 0;
+
+        startUpAudioContext();
 
         return false;
 
